@@ -7,13 +7,13 @@ public class Multiplicaion_Americana {
     public static void main(String[] args) {
 
         Scanner leer = new Scanner(System.in);
-        int DigN1, DigN2, Num1, Num2, NumTemp, CifrasNum1[] = new int[100], CifrasNum2[] = new int[100];
+        int DigN1, DigN2, Num1, Num2, NumTemp, CifrasNum1[] = new int[10000], CifrasNum2[] = new int[10000];
 
         System.out.println("<<<<<<Bienvenido a la multiplicacion Americana de 2 numero>>>>>>" + "\n" + "\n"
-                + "Digite Primer numero:"
+                + ".......Digite Primer numero:......."
         );
         Num1 = leer.nextInt();
-        System.out.println("Digite segundo numero:");
+        System.out.println(".......Digite segundo numero:.......");
         Num2 = leer.nextInt();
 
         NumTemp = Num1;
@@ -31,31 +31,33 @@ public class Multiplicaion_Americana {
             NumTemp = NumTemp / 10;
             DigN2++;
         }
-
-        int suma_Total = 0;
+        int Suma_Total = 0;
+        System.out.println("\n" + "A continuacion se muestran los sumandos:");
         for (int i = 0; i < DigN2; i++) {
-            int sumandoN_esimo = 0, Decena = 0, Ubi_Unidad = 1;
+            int sumandoN_esimo = 0, Decena = 0;
             for (int j = 0; j < DigN1; j++) {
                 int Unidad, Mult = CifrasNum1[j] * CifrasNum2[i];
+                if (Decena > 0) {
+                    Mult += Decena;
+                    Decena = 0;
+                }
                 if (j != DigN1 - 1) {
-                    if (Decena > 0) {
-                        Mult += Decena;
-                    }
-                    Unidad = (Mult % 10) * Ubi_Unidad;
-                    Ubi_Unidad *= 10;
+
+                    Unidad = (Mult % 10);
                     if (Mult >= 10) {
                         Decena = Mult / 10;
-                    } else {
-                        Decena = 0;
                     }
                 } else {
                     Unidad = Mult;
                 }
+                Unidad = Unidad * (int) Math.pow(10, j);
                 sumandoN_esimo += Unidad;
-                System.out.println(Decena + "hola" + Unidad);
             }
-            System.out.println("sumando" + sumandoN_esimo);
+            System.out.println("| Sumando numero " + (i + 1) + ": " + sumandoN_esimo);
+            sumandoN_esimo *= (int) Math.pow(10, i);
+            Suma_Total += sumandoN_esimo;
         }
+        System.out.println("El resultado final es: " + Suma_Total);
     }
 
 }
